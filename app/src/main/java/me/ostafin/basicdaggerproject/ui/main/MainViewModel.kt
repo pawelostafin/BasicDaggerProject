@@ -13,7 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val testId: Long,
+    private val extraLong: Long,
     private val apiService: ApiService
 ) : BaseViewModel() {
 
@@ -22,17 +22,27 @@ class MainViewModel @Inject constructor(
     private val _showToast: SingleLiveEvent<String> = SingleLiveEvent()
     val showToast: LiveData<String> = _showToast
 
+    private val _showFragment: SingleLiveEvent<Int> = SingleLiveEvent()
+    val showFragment: LiveData<Int> = _showFragment
+
     private val _textViewContent: MutableLiveData<String> = MutableLiveData()
     val textViewContent: LiveData<String> = _textViewContent
+
+    private val _textView2Content: MutableLiveData<String> = MutableLiveData()
+    val textView2Content: LiveData<String> = _textView2Content
+
+    private val _startMainActivity: SingleLiveEvent<Unit> = SingleLiveEvent()
+    val startMainActivity: LiveData<Unit> = _startMainActivity
 
     override fun onInitialize() {
         super.onInitialize()
 
         helloWorld()
+        _textView2Content.postValue(extraLong.toString())
     }
 
     private fun helloWorld() {
-        Timber.d("hello world $testId")
+        Timber.d("hello world $extraLong")
 
         apiService.getHehe()
             .asApiAsyncRequest()
@@ -53,9 +63,15 @@ class MainViewModel @Inject constructor(
     }
 
     fun buttonClicked() {
-        val nextNumberString = (counter++).toString()
+        val nextNumber = counter++
+        val nextNumberString = nextNumber.toString()
         _showToast.postValue(nextNumberString)
         _textViewContent.postValue(nextNumberString)
+        _showFragment.postValue(nextNumber)
+    }
+
+    fun startActivityButtonClicked() {
+        _startMainActivity.call()
     }
 
 }

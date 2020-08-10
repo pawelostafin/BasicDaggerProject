@@ -1,6 +1,7 @@
 package me.ostafin.basicdaggerproject.ui.main
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.kotlin.addTo
 import me.ostafin.basicdaggerproject.base.BaseViewModel
 import me.ostafin.basicdaggerproject.data.network.ApiService
@@ -20,6 +21,9 @@ class MainViewModel @Inject constructor(
 
     private val _showToast: SingleLiveEvent<String> = SingleLiveEvent()
     val showToast: LiveData<String> = _showToast
+
+    private val _textViewContent: MutableLiveData<String> = MutableLiveData()
+    val textViewContent: LiveData<String> = _textViewContent
 
     override fun onInitialize() {
         super.onInitialize()
@@ -49,8 +53,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun buttonClicked() {
-        val toastContent = (counter++).toString()
-        _showToast.postValue(toastContent)
+        val nextNumberString = (counter++).toString()
+        _showToast.postValue(nextNumberString)
+        _textViewContent.postValue(nextNumberString)
     }
 
 }

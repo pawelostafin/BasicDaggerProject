@@ -28,6 +28,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
         super.observeViewModel()
 
         viewModel.showToast.observe(this, ::showToast)
+        viewModel.textViewContent.observe(this) { textView.text = it }
     }
 
     private fun showToast(text: String) {

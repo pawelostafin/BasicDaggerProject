@@ -8,6 +8,10 @@ class EloRepository @Inject constructor(
     private val apiService: ApiService
 ) {
 
-    fun getHeHe() = apiService.getHehe()
+    fun getHeHe(page: Int) = apiService.getHehe()
+
+    fun heheCallback(callback: (Long) -> Unit) {
+        callback.invoke(808)
+    }
 
 }

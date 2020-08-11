@@ -84,4 +84,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
+    // mockk
+    testImplementation "io.mockk:mockk:1.10.0"
+
 }
